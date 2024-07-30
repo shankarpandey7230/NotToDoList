@@ -1,0 +1,20 @@
+# NOT TO DO LIST API
+
+@baseUrl =http://localhost:8000/api/v1/tasks
+
+
+### GET
+GET {{baseUrl}}
+
+### POST
+
+POST {{baseUrl}}
+
+### UPDATE
+PUT {{baseUrl}}
+
+
+### DELETE
+
+DELETE  {{baseUrl}}
+
