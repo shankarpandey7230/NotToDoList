@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
   res.json({
     status: 'success',
     message: 'response from get',
+    tasks: fakeDB,
   });
 });
 router.post('/', (req, res, next) => {

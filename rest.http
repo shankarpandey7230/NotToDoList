@@ -12,8 +12,8 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-"task":"coding",
-"hr":40
+"task":"cooking",
+"hr":10
 }
 
 ### UPDATE
