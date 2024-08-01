@@ -10,7 +10,11 @@ const router = express.Router();
 //   next();
 // });
 
-let fakeDB = [];
+let fakeDB = [
+  { id: 3, task: 'sleeping', hr: 40, type: 'entry' },
+  { id: 1, task: 'coding', hr: 40, type: 'entry' },
+  { id: 2, task: 'Eating', hr: 40, type: 'entry' },
+];
 
 router.get('/', (req, res, next) => {
   res.json({
@@ -21,6 +25,7 @@ router.get('/', (req, res, next) => {
 });
 router.post('/', (req, res, next) => {
   //   console.log(req.body);
+
   fakeDB.push(req.body);
   console.log(fakeDB);
 
@@ -30,10 +35,20 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.put('/', (req, res, next) => {
+router.patch('/', (req, res, next) => {
+  //   console.log(req.body);
+  const { id, type } = req.body;
+  const fakedB = fakeDB.map((item) => {
+    if (item.id === id) {
+      item.type = type;
+      return item;
+    } else {
+      return item;
+    }
+  });
   res.json({
     status: 'success',
-    message: 'response from put',
+    message: 'Task has been updated',
   });
 });
 

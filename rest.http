@@ -4,6 +4,7 @@
 
 
 ### GET
+
 GET {{baseUrl}}
 
 ### POST
@@ -12,12 +13,20 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-"task":"cooking",
-"hr":10
+"id":4,
+"task":"Dreaming",
+"hr":40,
+"type":"entry"
 }
 
 ### UPDATE
-PUT {{baseUrl}}
+PATCH  {{baseUrl}}
+Content-Type: application/json
+
+{
+"id":3,
+"type":"bad"
+}
 
 
 ### DELETE
