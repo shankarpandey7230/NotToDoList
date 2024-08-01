@@ -31,5 +31,6 @@ Content-Type: application/json
 
 ### DELETE
 
-DELETE  {{baseUrl}}
+DELETE  {{baseUrl}}/3
+
 

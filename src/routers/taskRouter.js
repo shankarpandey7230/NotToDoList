@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
 router.patch('/', (req, res, next) => {
   //   console.log(req.body);
   const { id, type } = req.body;
-  const fakedB = fakeDB.map((item) => {
+  fakedB = fakeDB.map((item) => {
     if (item.id === id) {
       item.type = type;
       return item;
@@ -52,10 +52,14 @@ router.patch('/', (req, res, next) => {
   });
 });
 
-router.delete('/', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  fakeDB = fakeDB.filter((item) => item.id !== +id);
+
   res.json({
     status: 'success',
-    message: 'response from get',
+    message: 'response from delete',
   });
 });
 
