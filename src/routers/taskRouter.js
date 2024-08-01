@@ -9,6 +9,9 @@ const router = express.Router();
 //   //   });
 //   next();
 // });
+
+let fakeDB = [];
+
 router.get('/', (req, res, next) => {
   res.json({
     status: 'success',
@@ -16,9 +19,13 @@ router.get('/', (req, res, next) => {
   });
 });
 router.post('/', (req, res, next) => {
+  //   console.log(req.body);
+  fakeDB.push(req.body);
+  console.log(fakeDB);
+
   res.json({
     status: 'success',
-    message: 'response from post',
+    message: 'New Task has been added successfully',
   });
 });
 

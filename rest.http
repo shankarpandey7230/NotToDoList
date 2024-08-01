@@ -9,6 +9,12 @@ GET {{baseUrl}}
 ### POST
 
 POST {{baseUrl}}
+Content-Type: application/json
+
+{
+"task":"coding",
+"hr":40
+}
 
 ### UPDATE
 PUT {{baseUrl}}
