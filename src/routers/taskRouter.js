@@ -1,5 +1,5 @@
 import express from 'express';
-
+import mongoose from 'mongoose';
 const router = express.Router();
 
 // router.all('/', (req, res, next) => {
@@ -10,24 +10,37 @@ const router = express.Router();
 //   next();
 // });
 
-let fakeDB = [
-  { id: 3, task: 'sleeping', hr: 40, type: 'entry' },
-  { id: 1, task: 'coding', hr: 40, type: 'entry' },
-  { id: 2, task: 'Eating', hr: 40, type: 'entry' },
-];
+// let fakeDB = [
+//   { id: 3, task: 'sleeping', hr: 40, type: 'entry' },
+//   { id: 1, task: 'coding', hr: 40, type: 'entry' },
+//   { id: 2, task: 'Eating', hr: 40, type: 'entry' },
+// ];
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
+  // db.collection.find()
+
+  const tasks = await taskCollection.find();
   res.json({
     status: 'success',
     message: 'response from get',
-    tasks: fakeDB,
+    // tasks: fakeDB,
+    tasks,
   });
 });
-router.post('/', (req, res, next) => {
-  //   console.log(req.body);
 
-  fakeDB.push(req.body);
-  console.log(fakeDB);
+// database table selection
+const taskSchema = new mongoose.Schema({}, { strict: false });
+const taskCollection = mongoose.model('Task', taskSchema);
+
+router.post('/', async (req, res, next) => {
+  console.log(req.body);
+
+  // fakeDB.push(req.body);
+  // console.log(fakeDB);
+
+  // insert task
+  const result = await taskCollection(req.body).save();
+  console.log(result);
 
   res.json({
     status: 'success',
@@ -35,31 +48,37 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.patch('/', (req, res, next) => {
-  //   console.log(req.body);
-  const { id, type } = req.body;
-  fakedB = fakeDB.map((item) => {
-    if (item.id === id) {
-      item.type = type;
-      return item;
-    } else {
-      return item;
-    }
+router.patch('/', async (req, res, next) => {
+  const { _id, ...rest } = req.body;
+  console.log(req.body);
+
+  const result = await taskCollection.findByIdAndUpdate(_id, rest, {
+    new: true,
   });
+  // fakedB = fakeDB.map((item) => {
+  //   if (item.id === id) {
+  //     item.type = type;
+  //     return item;
+  //   } else {
+  //     return item;
+  //   }
+  // });
   res.json({
     status: 'success',
     message: 'Task has been updated',
+    result,
   });
 });
 
-router.delete('/:id', (req, res, next) => {
-  const { id } = req.params;
-  console.log(id);
-  fakeDB = fakeDB.filter((item) => item.id !== +id);
-
+router.delete('/:_id', async (req, res, next) => {
+  const { _id } = req.params;
+  // console.log(_id);
+  // fakeDB = fakeDB.filter((item) => item.id !== +id);
+  const result = await taskCollection.findByIdAndDelete(_id);
   res.json({
     status: 'success',
     message: 'response from delete',
+    result,
   });
 });
 

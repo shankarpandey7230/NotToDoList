@@ -1,8 +1,15 @@
 import express from 'express';
 import taskRouter from './src/routers/taskRouter.js';
 import morgan from 'morgan';
+
+import { connectMongodb } from './src/config/dbConfig.js';
+
+connectMongodb();
+
 const app = express();
 const PORT = 8000;
+
+// connect MongoDB
 
 app.use(morgan('dev'));
 app.use(express.json());

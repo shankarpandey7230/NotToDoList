@@ -13,7 +13,7 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-"id":4,
+
 "task":"Dreaming",
 "hr":40,
 "type":"entry"
@@ -24,13 +24,13 @@ PATCH  {{baseUrl}}
 Content-Type: application/json
 
 {
-"id":3,
+"_id":"66b4317c485062439e2146dc",
 "type":"bad"
 }
 
 
 ### DELETE
 
-DELETE  {{baseUrl}}/3
+DELETE  {{baseUrl}}/66b4317c485062439e2146dc
 
 
