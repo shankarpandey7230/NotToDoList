@@ -1,5 +1,10 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import {
+  insertTask,
+  getTasks,
+  updateTasks,
+  deleteTasks,
+} from '../modals/taskModals/TaskSchema.js';
 const router = express.Router();
 
 // router.all('/', (req, res, next) => {
@@ -19,7 +24,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   // db.collection.find()
 
-  const tasks = await taskCollection.find();
+  const tasks = await getTasks();
   res.json({
     status: 'success',
     message: 'response from get',
@@ -28,34 +33,35 @@ router.get('/', async (req, res, next) => {
   });
 });
 
-// database table selection
-const taskSchema = new mongoose.Schema({}, { strict: false });
-const taskCollection = mongoose.model('Task', taskSchema);
-
 router.post('/', async (req, res, next) => {
   console.log(req.body);
 
   // fakeDB.push(req.body);
   // console.log(fakeDB);
 
-  // insert task
-  const result = await taskCollection(req.body).save();
-  console.log(result);
+  try {
+    const result = await insertTask(req.body);
+    console.log(result);
 
-  res.json({
-    status: 'success',
-    message: 'New Task has been added successfully',
-  });
+    res.json({
+      status: 'success',
+      message: 'New Task has been added successfully',
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      status: 'error',
+      message: error.message,
+    });
+  }
+  // insert task
 });
 
 router.patch('/', async (req, res, next) => {
   const { _id, ...rest } = req.body;
   console.log(req.body);
 
-  const result = await taskCollection.findByIdAndUpdate(_id, rest, {
-    new: true,
-  });
-  // fakedB = fakeDB.map((item) => {
+  const result = await updateTasks(_id, rest); // fakedB = fakeDB.map((item) => {
   //   if (item.id === id) {
   //     item.type = type;
   //     return item;
@@ -74,7 +80,7 @@ router.delete('/:_id', async (req, res, next) => {
   const { _id } = req.params;
   // console.log(_id);
   // fakeDB = fakeDB.filter((item) => item.id !== +id);
-  const result = await taskCollection.findByIdAndDelete(_id);
+  const result = await deleteTasks(_id);
   res.json({
     status: 'success',
     message: 'response from delete',

@@ -14,9 +14,11 @@ Content-Type: application/json
 
 {
 
-"task":"Dreaming",
-"hr":40,
-"type":"entry"
+"task":"Dreagasd",
+
+"hr":10,
+"type":"bad"
+
 }
 
 ### UPDATE
@@ -24,13 +26,13 @@ PATCH  {{baseUrl}}
 Content-Type: application/json
 
 {
-"_id":"66b4317c485062439e2146dc",
+"_id":"66b43962737ce139d7d7b585",
 "type":"bad"
 }
 
 
 ### DELETE
 
-DELETE  {{baseUrl}}/66b4317c485062439e2146dc
+DELETE  {{baseUrl}}/66b43962737ce139d7d7b585
 
 
