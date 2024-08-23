@@ -7,7 +7,7 @@ import { connectMongodb } from './src/config/dbConfig.js';
 connectMongodb();
 
 const app = express();
-const PORT = 8000;
+onst PORT = process.env.PORT || 8000;
 
 // connect MongoDB
 
